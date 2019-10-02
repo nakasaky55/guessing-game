@@ -2,9 +2,11 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
+let time = 0;
 let generatedNumber = getRandomInt(100);
 let playChance = 5;
 let guessNumber = [];
+let myTime;
 document.getElementById("gameOver").style.display = "none";
 document.getElementById("number").value = generatedNumber;
 document.getElementById("chance-left").innerHTML = playChance;
@@ -19,7 +21,7 @@ function doGuess() {
   let valInput = document.getElementById("numberInput").value;
   let dangerOrSuccess;
   let msg;
-  
+
   if (valInput == "") {
     alertResultFunction(false, "Please enter a number");
   } else if (valInput > 100) {
@@ -49,6 +51,7 @@ function doGuess() {
       chance -= 1;
       document.getElementById("chance-left").innerHTML = chance;
 
+      startCounting();
       // gameOver("Out of chance");
     } else if (valInput > generatedNumber) {
       msg = "it's a little bigger";
@@ -62,6 +65,8 @@ function doGuess() {
       }
       chance -= 1;
       document.getElementById("chance-left").innerHTML = chance;
+
+      startCounting();
       // gameOver("Out of chance");
     }
   }
@@ -117,6 +122,8 @@ function newGame() {
   document.getElementById("alertResult").innerHTML = "";
   guessNumber = [];
 
+  clearInterval(myTime); 
+  startCounting();
   generatedNumber = getRandomInt(100);
   document.getElementById("number").value = generatedNumber;
 }
@@ -130,11 +137,12 @@ function gameOver(msg) {
 function mainFunction() {
   //   let chance = parseInt(document.getElementById("chance-left").innerHTML);
   let valInput = document.getElementById("numberInput").value;
-
+  // startCounting();
+  clearInterval(myTime);
   if (guessNumber.includes(valInput) == true) {
     alertResultFunction(false, "You enter a duplicated number");
     return;
-  } else if(valInput != "" && valInput < 100) {
+  } else if (valInput != "" && valInput < 100) {
     guessNumber.push(valInput);
   }
 
@@ -145,3 +153,20 @@ function mainFunction() {
     console.log("run");
   }
 }
+
+function startCounting() {
+  time = 0;
+  myTime = setInterval(everyRun, 1000);
+}
+
+function everyRun() {
+  time += 1;
+  document.getElementById("timing").innerHTML = time;
+
+  if (time == 10) {
+    clearInterval(myTime);
+    gameOver("Game Over");
+  }
+}
+
+startCounting();
