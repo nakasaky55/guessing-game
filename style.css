@@ -1,0 +1,41 @@
+#chance-left{
+    min-height: 50px;
+    text-align: center;
+    font-size: 40px;
+}
+
+#gameOver {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.chance-display {
+    text-align: center;
+}
+
+.container {
+    padding-top : 50px;
+    min-height: 600px;
+}
+
+.custom-btn {
+    border: 1px solid white;
+    color: white
+}
+
+.custom-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container {
+    margin-top: 20px;
+    /* border-radius: 5%; */
+    background-image: url(/img/22346.jpg);
+    background-size: cover;
+    min-height: 800px;
+}
+
+.container-fluid {
+    background-image: url(./img/universe.jpg);
+}
