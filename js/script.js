@@ -19,12 +19,12 @@ function doGuess() {
   let valInput = document.getElementById("numberInput").value;
   let dangerOrSuccess;
   let msg;
+  
   if (valInput == "") {
     alertResultFunction(false, "Please enter a number");
-    return false;
   } else if (valInput > 100) {
     alertResultFunction(false, "Your guess exceeds the hidden number");
-    return false;
+    resetInput();
   } else {
     if (valInput == generatedNumber) {
       let msg = "Correct";
@@ -128,18 +128,18 @@ function gameOver(msg) {
 }
 
 function mainFunction() {
-//   let chance = parseInt(document.getElementById("chance-left").innerHTML);
+  //   let chance = parseInt(document.getElementById("chance-left").innerHTML);
   let valInput = document.getElementById("numberInput").value;
 
   if (guessNumber.includes(valInput) == true) {
     alertResultFunction(false, "You enter a duplicated number");
     return;
-  } else {
+  } else if(valInput != "" && valInput < 100) {
     guessNumber.push(valInput);
   }
 
   if (doGuess() > 0) {
-    doGuess();
+    return;
   } else if (doGuess() < 1) {
     gameOver("Out of Chance");
     console.log("run");
